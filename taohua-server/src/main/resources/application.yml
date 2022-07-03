@@ -1,0 +1,11 @@
+server:
+  port: 18080
+dubbo:
+  application:
+    name: taohua-server
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  consumer:
+    timeout: 3000
+    check: false
+

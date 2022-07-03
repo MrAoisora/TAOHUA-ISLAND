@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!--父工程用作版本锁定-->
+    <groupId>org.example</groupId>
+    <artifactId>TAOHUA-ISLAND</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>taohua-commos</module>
+        <module>taohua-domain</module>
+        <module>taohua-dubbo</module>
+        <module>taohua-server</module>
+    </modules>
+
+    <!--1. 指定SpringBoot继承的父项目-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.1</version>
+    </parent>
+
+    <!--2. 统一定义版本，通过${标签名称}引用标签-->
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <mysql.version>5.1.47</mysql.version>
+        <junit2.version>4.12</junit2.version>
+        <druid.version>1.0.9</druid.version>
+    </properties>
+    <!--3. 版本锁定：统一定义组件的版本，子项目继承父项目还需要添加依赖只是不用指定版本-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
