@@ -29,19 +29,20 @@
             </PatternLayout>
         </Console>
 <!--下列分别为三种日志文件输出策略，可以多选也可以只选择一种输出-->
-        <!-- 1.日志文件输出 appender -->
-<!--        <File name="file" fileName="${provider.log.home}/myfile.log">-->
-<!--            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n" />-->
-<!--        </File>-->
+<!--         1.日志文件输出 appender-->
+        <File name="file" fileName="${provider.log.home}/myfile.log">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n" />
+        </File>
 
-        <!-- 2.使用随机读写流的日志文件输出 appender，性能提高 -->
-<!--        <RandomAccessFile name="accessFile" fileName="${provider.log.home}/myAcclog.log">-->
-<!--            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n" />-->
-<!--        </RandomAccessFile>-->
+<!--         2.使用随机读写流的日志文件输出 appender，性能提高-->
+        <RandomAccessFile name="accessFile" fileName="${provider.log.home}/myAcclog.log">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n" />
+        </RandomAccessFile>
 
         <!-- 3.按照一定规则拆分的日志文件的appender -->  <!-- 拆分后的文件 -->
+<!--        该日志和其余两种日志策略不一样，每次重启系统后对应的日志会被刷新冲掉，所以每次重启前都需要创建一个上一回的日志的备份-->
         <RollingFile name="file.core.appender" fileName="${provider.log.home}/file.core.log"
-                     filePattern="${provider.log.backup.home}/$${date:yyyy-MM-dd}/provider.core-%d{yyyy-MM-dd}-%i.log"
+                     filePattern="${provider.log.backup.home}/$${date:yyyy-MM-dd}/provider.core-%d{yyyy-MM-dd}-%i.bak.log"
         immediateFlush="true" append="true">
             <!-- 日志级别过滤器 -->
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
@@ -68,6 +69,7 @@
     <Loggers>
         <!-- 使用 rootLogger 配置 日志级别 level="trace" -->
         <!--level日志级别: ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF -->
+<!--        当日志级别被设置为warn时，级别小于warn的日志都不会被打印输出，这就是日志级别-->
         <Root level="trace">
             <!-- 指定日志使用的处理器 -->
             <!-- 1.开启日志打印到控制台-->
